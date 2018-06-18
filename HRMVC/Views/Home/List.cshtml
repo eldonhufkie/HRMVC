@@ -1,0 +1,87 @@
+﻿
+<div>
+    @model IEnumerable<HRMVC.Models.Advert>
+
+    @{
+        ViewBag.Title = "List";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Index", "Index")
+        </p>
+    }
+    <table class="table" id="myDataTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @if (Request.IsAuthenticated)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <td>
+                            @*  @Html.Label(item.Description)<br />*@
+                            @Html.TextAreaFor(modelItem => item.Description, new {  @class = "form-control disabled" })
+                        </td>
+                        @*@Html.DisplayFor(modelItem => item.Description)*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })  |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @*  @Html.Label(item.Description)<br />*@
+                        @Html.DisplayFor(modelItem => item.Description)
+                        @*  @Html.TextAreaFor(modelItem => item.Description, new { @readonly = true, @class= "form-control disabled" })*@
+                    </td>
+
+                    <td>
+                        @
+                        @Html.ActionLink("Upload", "Upload", new {id = item.Id})
+                    </td>
+
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <td>
+                            @Html.ActionLink("Add", "Add", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                        </td>
+                    }
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+@*<script>
+    $document.ready(function() {
+        var table = $('#myDataTable').DataTable({
+            "ajax": {
+                "url": '/home/',
+                "type": "get",
+                "datatype": "json"
+            },
+            "columns": [
+                {}
+            ]
+        });
+
+    })
+</script>*@

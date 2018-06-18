@@ -1,0 +1,148 @@
+﻿@using HRMVC.Models
+
+@model IEnumerable<HRMVC.Models.Advert>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@if (Request.IsAuthenticated)
+{
+    <a href="#" class="btn btn-default" onclick="AddNewAdvert(0)">Add New Advert</a><br /><br />
+    <br />
+    <div ng-app="Homeapp">
+        <div ng-controller="HomeController">
+            <table class="table table-hover">
+                <tr>
+                    <th>Description</th>
+                </tr>
+                <tr ng-repeat="e in ads" ng-class-even="table-striped" ng-class-odd="table-striped">
+                    <td>{{e.Description}}</td>
+                    <td>
+                        <input type="button" value="Edit" class="btn btn-default" />
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" class="btn btn-default" />
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+}
+else
+{
+    <div ng-app="Homeapp">
+        <div ng-controller="HomeController">
+            <form action="" method="post" enctype="multipart/form-data">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    <tr ng-repeat="e in ads" ng-class-even="table-striped" ng-class-odd="table-striped">
+                        <td id="adId">{{e.Id}}</td>
+                        <td>{{e.Description}}</td>
+
+                        <td>
+                            <input type="file" name="file" id="file" />
+                        </td>
+                        <td>
+                            <button class="btn btn-block" type="submit">Upload</button>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+            </form>
+        </div>
+
+    </div>
+        @*<div>
+                <table id="tblEmployee" class="table table-hover">
+                    <thead>
+                        <img src="~/Loading.gif" alt="Loading" id="imgLoading" class="Load" />
+                    </thead>
+                    <tbody id="tblEmployeetbody"> </tbody>
+                </table>
+            </div>*@
+
+}
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/AngularController/Homejs.js"></script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script>
+
+
+    //$(document).ready(function() {
+    //    $.get("/Home/GetAdvertList", null, DataBind);
+    //    function DataBind(advertList) {
+    //        var setData = $("SetAdvertList");
+    //        for (var i = 0; i < advertList.length; i++) {
+    //            var data = "<tr class='row_'" +
+    //                advertList[i].Description +
+    //                "'>" +
+    //                "<td>" +
+    //                advertList[i].Description +
+    //                "</td>" +
+    //                "<td>" +
+    //                "<a href='#' class='btn btn-warning' onclick='EditAdvert()'><span class='glyphicon glyphicon-edit'></span></a>" +
+    //                "</td>" +
+    //                "<td" +
+    //                "><a href='#' class='btn btn-danger' onclick='DeleteAdvert()'><span class='glyphicon glyphicon-trash'></span></a>" +
+    //                "</td>" +
+    //                "</tr>";
+    //            setData.append(data);
+
+    //        }
+    //    }
+
+    //});
+    @*$(document).ready(function () {
+        $("#tblEmployeetbodytr").remove();
+        $.ajax
+        ({
+            type: 'Get',
+            url: '@Url.Action("AjaxGetList")',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                $("#imgLoading").hide();
+                var items = '';
+                var rows = "<tr>" +
+                    "<th class='table'>Description</th>" + "<th class='table'>Upload</th>" +
+                    "<th class='table'>Submit</th>" +
+                    "</tr>";
+                $('#tblEmployeetbody').append(rows);
+
+                $.each(data, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td class='table' style='padding:10px'>" + item.Description + "</td>" +
+                        "<td class='table-striped' ><input type='file' style='padding:10px'></td>" +
+                        "<td><input type='submit'class='btn btn-block' id='btnGetIDandUpload' style='padding:10px'/></td>" +
+                        "</tr>";
+                    $('#tblEmployeetbody').append(rows);
+                });
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+            }
+        });
+        return false;
+    });
+
+    document.getElementById('btnGetIDandUpload').click(function() {
+        alert("Test");
+    });*@
+</script>
